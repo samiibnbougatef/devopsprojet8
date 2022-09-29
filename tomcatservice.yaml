@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: tomcat-deploy
+spec:
+  selector:
+    app: tomcat-deploy
+  ports:
+  - port: 8080
+    targetPort: 30000

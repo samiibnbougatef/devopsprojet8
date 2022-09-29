@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+  namespace: tomcat-deploy
+spec:
+  selector:
+    matchLabels:
+      app: tomcat-deploy
+  template:
+    metadata:
+      labels:
+        app: tomcat-deploy
+    spec:
+      containers:
+      - name: tomcat-deploy
+        image: tomcat:8.5.82
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+
