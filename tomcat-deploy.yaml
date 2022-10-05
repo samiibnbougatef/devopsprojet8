@@ -1,24 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-deploy
-  namespace: tomcat-deploy
+  name: tomcat
+  
 spec:
   selector:
     matchLabels:
-      app: tomcat-deploy
+      app: tomcat
   template:
     metadata:
       labels:
-        app: tomcat-deploy
+        app: tomcat
     spec:
       containers:
-      - name: tomcat-deploy
-        image: tomcat:8.5.82
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+      - name: tomcat
+        image: samiibnbougatef/tomcat:tomcat57
+        imagePullPolicy:  Always
         ports:
         - containerPort: 8080
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat
 
+spec:
+  type: NodePort
+  selector:
+    app: tomcat
+  ports:
+   - port: 80
+     targetPort: 8080
+     nodePort: 32000
